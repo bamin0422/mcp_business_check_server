@@ -9,11 +9,6 @@ mcp:
   description: 사업자등록번호 진위 및 정보 조회 MCP 서버
   transport: stdio
 
-# 빌드 설정
-build:
-  dockerfile: Dockerfile
-  context: .
-
 # 환경 변수
 environment:
   MCP_SERVER: "true"
