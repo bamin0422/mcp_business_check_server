@@ -106,9 +106,15 @@ class MCPService {
         });
     }
     async start() {
-        const transport = new stdio_js_1.StdioServerTransport();
-        await this.server.connect(transport);
-        console.error("MCP 서버가 시작되었습니다.");
+        try {
+            const transport = new stdio_js_1.StdioServerTransport();
+            await this.server.connect(transport);
+            console.error("MCP 서버가 시작되었습니다.");
+        }
+        catch (error) {
+            console.error("MCP 서버 시작 실패:", error);
+            throw error;
+        }
     }
 }
 exports.MCPService = MCPService;

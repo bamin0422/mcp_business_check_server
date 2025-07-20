@@ -128,8 +128,13 @@ export class MCPService {
   }
 
   async start(): Promise<void> {
-    const transport = new StdioServerTransport();
-    await this.server.connect(transport);
-    console.error("MCP 서버가 시작되었습니다.");
+    try {
+      const transport = new StdioServerTransport();
+      await this.server.connect(transport);
+      console.error("MCP 서버가 시작되었습니다.");
+    } catch (error) {
+      console.error("MCP 서버 시작 실패:", error);
+      throw error;
+    }
   }
 }
