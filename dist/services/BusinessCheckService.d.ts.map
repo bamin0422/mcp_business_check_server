@@ -1,0 +1,1 @@
+{"version":3,"file":"BusinessCheckService.d.ts","sourceRoot":"","sources":["../../src/services/BusinessCheckService.ts"],"names":[],"mappings":"AACA,OAAO,EACL,mBAAmB,EAGpB,MAAM,2BAA2B,CAAC;AACnC,OAAO,EAAE,aAAa,EAAE,MAAM,oBAAoB,CAAC;AAInD,qBAAa,oBAAoB;IAC/B,OAAO,CAAC,aAAa,CAAgB;gBAEzB,aAAa,EAAE,aAAa;IAIlC,mBAAmB,CAAC,SAAS,EAAE,MAAM,GAAG,OAAO,CAAC,mBAAmB,CAAC;CA8D3E"}
