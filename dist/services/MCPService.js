@@ -108,7 +108,7 @@ class MCPService {
     async start() {
         const transport = new stdio_js_1.StdioServerTransport();
         await this.server.connect(transport);
-        console.log("MCP 서버가 시작되었습니다.");
+        console.error("MCP 서버가 시작되었습니다.");
     }
 }
 exports.MCPService = MCPService;

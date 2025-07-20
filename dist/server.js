@@ -20,6 +20,8 @@ class App {
     constructor() {
         this.port = parseInt(process.env.PORT || "3000");
         this.app = (0, express_1.default)();
+        this.isMCPServer =
+            process.env.MCP_SERVER === "true" || process.argv.includes("--mcp");
         // 서비스 초기화
         this.configService = new ConfigService_js_1.ConfigService();
         this.businessCheckService = new BusinessCheckService_js_1.BusinessCheckService(this.configService);
@@ -63,13 +65,15 @@ class App {
     }
     async start() {
         try {
-            // Express 서버 시작
-            this.app.listen(this.port, () => {
-                console.log(`Express 서버가 http://localhost:${this.port} 에서 실행 중입니다.`);
-                console.log(`환경: ${process.env.NODE_ENV || "development"}`);
-            });
             // MCP 서버 시작
             await this.mcpService.start();
+            // Express 서버는 MCP 전용 모드가 아닐 때만 시작
+            if (!this.isMCPServer) {
+                this.app.listen(this.port, () => {
+                    console.error(`Express 서버가 http://localhost:${this.port} 에서 실행 중입니다.`);
+                    console.error(`환경: ${process.env.NODE_ENV || "development"}`);
+                });
+            }
         }
         catch (error) {
             console.error("서버 시작 실패:", error);
@@ -79,14 +83,17 @@ class App {
 }
 // 프로세스 종료 핸들러
 process.on("SIGTERM", () => {
-    console.log("SIGTERM 신호를 받았습니다. 서버를 종료합니다.");
+    console.error("SIGTERM 신호를 받았습니다. 서버를 종료합니다.");
     process.exit(0);
 });
 process.on("SIGINT", () => {
-    console.log("SIGINT 신호를 받았습니다. 서버를 종료합니다.");
+    console.error("SIGINT 신호를 받았습니다. 서버를 종료합니다.");
     process.exit(0);
 });
 // 서버 시작
 const app = new App();
-app.start().catch(console.error);
+app.start().catch((error) => {
+    console.error("서버 시작 실패:", error);
+    process.exit(1);
+});
 //# sourceMappingURL=server.js.map

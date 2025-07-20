@@ -16,7 +16,7 @@ class CommonMiddleware {
         };
         // 로깅 미들웨어
         this.logging = (req, res, next) => {
-            console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+            console.error(`${new Date().toISOString()} - ${req.method} ${req.path}`);
             next();
         };
         // 404 핸들러
