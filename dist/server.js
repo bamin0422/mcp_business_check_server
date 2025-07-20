@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const ConfigService_js_1 = require("./services/ConfigService.js");
 const BusinessCheckService_js_1 = require("./services/BusinessCheckService.js");
-const MCPService_js_1 = require("./services/MCPService.js");
 const BusinessController_js_1 = require("./controllers/BusinessController.js");
 const ConfigController_js_1 = require("./controllers/ConfigController.js");
 const HealthController_js_1 = require("./controllers/HealthController.js");
@@ -20,12 +19,9 @@ class App {
     constructor() {
         this.port = parseInt(process.env.PORT || "3000");
         this.app = (0, express_1.default)();
-        this.isMCPServer =
-            process.env.MCP_SERVER === "true" || process.argv.includes("--mcp");
         // 서비스 초기화
         this.configService = new ConfigService_js_1.ConfigService();
         this.businessCheckService = new BusinessCheckService_js_1.BusinessCheckService(this.configService);
-        this.mcpService = new MCPService_js_1.MCPService(this.businessCheckService, this.configService);
         this.setupMiddleware();
         this.setupRoutes();
         this.setupErrorHandling();
@@ -65,15 +61,11 @@ class App {
     }
     async start() {
         try {
-            // MCP 서버 시작
-            await this.mcpService.start();
-            // Express 서버는 MCP 전용 모드가 아닐 때만 시작
-            if (!this.isMCPServer) {
-                this.app.listen(this.port, () => {
-                    console.error(`Express 서버가 http://localhost:${this.port} 에서 실행 중입니다.`);
-                    console.error(`환경: ${process.env.NODE_ENV || "development"}`);
-                });
-            }
+            // Express 서버 시작
+            this.app.listen(this.port, () => {
+                console.error(`Express 서버가 http://localhost:${this.port} 에서 실행 중입니다.`);
+                console.error(`환경: ${process.env.NODE_ENV || "development"}`);
+            });
         }
         catch (error) {
             console.error("서버 시작 실패:", error);

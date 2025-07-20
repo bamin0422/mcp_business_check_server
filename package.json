@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "tsx src/server.ts",
-    "mcp": "MCP_SERVER=true node dist/server.js",
+    "mcp": "node dist/mcp-server.js",
+    "mcp:dev": "tsx src/mcp-server.ts",
     "watch": "tsc --watch"
   },
   "keywords": [
