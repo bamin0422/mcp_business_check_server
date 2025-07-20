@@ -1,5 +1,7 @@
 # MCP Business Check Server
 
+[![smithery badge](https://smithery.ai/badge/@bamin0422/mcp_business_check_server)](https://smithery.ai/server/@bamin0422/mcp_business_check_server)
+
 사업자등록번호 진위 및 정보 조회 MCP (Model Context Protocol) 서버입니다.
 
 ## 🏗️ 아키텍처
@@ -38,6 +40,14 @@ src/
 - 공공데이터포털 API 인증키
 
 ## 🛠️ 설치 및 실행
+
+### Installing via Smithery
+
+To install MCP Business Check Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@bamin0422/mcp_business_check_server):
+
+```bash
+npx -y @smithery/cli install @bamin0422/mcp_business_check_server --client claude
+```
 
 ### 로컬 개발
 
