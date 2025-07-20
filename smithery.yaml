@@ -13,33 +13,13 @@ mcp:
 build:
   dockerfile: Dockerfile
   context: .
-  target: production
 
 # 환경 변수
 environment:
   MCP_SERVER: "true"
   NODE_ENV: "production"
-  PORT: "3000"
-
-# 포트 설정 (선택사항, MCP는 stdio 사용)
-ports:
-  - "3000:3000"
-
-# 헬스체크
-healthcheck:
-  test: ["CMD", "node", "-e", "console.log('Health check passed')"]
-  interval: 30s
-  timeout: 10s
-  retries: 3
 
 # 리소스 제한
 resources:
-  memory: "512Mi"
-  cpu: "0.5"
-
-# 로그 설정
-logging:
-  driver: "json-file"
-  options:
-    max-size: "10m"
-    max-file: "3"
+  memory: "256Mi"
+  cpu: "0.25"

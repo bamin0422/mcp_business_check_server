@@ -19,12 +19,9 @@ COPY . .
 # TypeScript 빌드
 RUN pnpm build
 
-# MCP 서버 모드로 실행
-ENV MCP_SERVER=true
+# 환경 변수 설정
 ENV NODE_ENV=production
-
-# 포트 노출 (선택사항, MCP는 stdio 사용)
-EXPOSE 3000
+ENV MCP_SERVER=true
 
 # MCP 서버 실행
 CMD ["node", "dist/server.js"] 
