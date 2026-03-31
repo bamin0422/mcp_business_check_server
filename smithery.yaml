@@ -1,0 +1,17 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - apiKey
+    properties:
+      apiKey:
+        type: string
+        title: "공공데이터포털 API 인증키"
+        description: "공공데이터포털에서 발급받은 사업자등록번호 진위확인 API 인증키"
+  commandFunction: |-
+    (config) => {
+      const fs = require('fs');
+      fs.writeFileSync('./config.json', JSON.stringify({ apiKey: config.apiKey }, null, 2));
+      return { command: 'node', args: ['dist/mcp-server.js'] };
+    }
